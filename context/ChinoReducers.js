@@ -13,10 +13,7 @@ export default function ChinoReducer(state, action) {
         plato: action.payload,
       };
     case "AGREGAR_PLATO":
-      localStorage.setItem(
-        "platos",
-        JSON.stringify([...state.platos, action.payload])
-      );
+
       return {
         ...state,
         platos: [...state.platos, action.payload],

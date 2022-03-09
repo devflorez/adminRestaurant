@@ -7,7 +7,9 @@ export default function Id() {
   const [formData, setFormData] = useState(initialValue(plato));
 
   const Router = useRouter();
-  const handleUpdate = (e) => {
+
+  
+  const handleUpdate = async (e) => {
     e.preventDefault();
     const errors = validate(formData);
     setFormData({ ...formData, errors });
@@ -18,15 +20,15 @@ export default function Id() {
         precio: formData.precio,
         ingredientes: formData.ingredientes,
       };
-      editarPlato(platoUpdate);
+    await  editarPlato(platoUpdate);
       Router.push("/");
     } else {
       alert("Por favor corrige los errores");
     }
   };
-  const handleDelete = (e) => {
+  const handleDelete =async (e) => {
     e.preventDefault();
-    eliminarPlato(plato);
+   await  eliminarPlato(plato);
     Router.push("/");
   };
   return (

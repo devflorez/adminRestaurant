@@ -20,7 +20,7 @@ export default function Home() {
       plato.ingredientes.toLowerCase().includes(search.toLowerCase())
     );
   });
-
+  console.log(platos);
   return (
     <Layout>
       <div className="home">

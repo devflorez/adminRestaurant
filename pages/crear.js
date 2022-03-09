@@ -9,6 +9,7 @@ export default function Crear() {
   const handleSubtmit = (e) => {
     e.preventDefault();
     const errors = validate(formData);
+   
     setFormData({ ...formData, errors });
     if (Object.keys(errors).length === 0) {
       let plato = {
@@ -19,9 +20,7 @@ export default function Crear() {
       };
       agregarPlato(plato);
       Router.push("/");
-    } else {
-      alert("Por favor corrige los errores");
-    }
+    } 
   };
 
   return (
