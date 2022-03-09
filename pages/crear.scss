@@ -1,0 +1,49 @@
+.crear {
+  h1 {
+    color: white;
+  }
+  &--form {
+    &--input {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 5px;
+      label {
+        color: white;
+        margin-bottom: 5px;
+      }
+      input {
+        background-color: black;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 10px;
+        font-size: 1.2rem;
+      }
+    }
+    &--ingredientes {
+      h2 {
+        color: white;
+      }
+    }
+    &--button{
+      
+            background-color: #61FF0D;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px;
+            font-size: 1.2rem;
+            cursor: pointer;
+        &--eliminar{
+            margin: 5px;
+            background-color: #6b1a1a;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+    }
+  }
+}

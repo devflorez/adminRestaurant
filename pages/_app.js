@@ -1,7 +1,11 @@
-import '../styles/globals.css'
-
+import "../styles/globals.scss";
+import { ChinoProvider } from "../context/ChinoContext";
 function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />
+  return (
+    <ChinoProvider>
+      <Component {...pageProps} />
+    </ChinoProvider>
+  );
 }
 
-export default MyApp
+export default MyApp;
