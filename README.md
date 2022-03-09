@@ -1,34 +1,23 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Bienvenido al repositorio !
+**Descripción general:** Este pequeño aplicativo de un CRUD, enfocado a un restaurante el cual utiliza NextJS.
+**Estructura del código:** 
+ - **Components:** Esta carpeta contiene todos los compontes de la aplicación, cada componente tiene su propia carpeta, el cual dentro de ella estará almacenado la Hoja de estilo del componente (**component**.**scss**), la importación (**index.js**) y el componente (**component.js**).
+ - **Pages**: Esta carpeta contiene todas las paginas o vista que contiene el aplicativo, cada pagina contiene su hoja de estilo en caso de uso.
+ - **Context**: Esta carpeta contiene el manejador del estado de la aplicación, el cual se encuentra el **reducer**, y **context**.
+ - **Public**: Esta carpeta tiene los iconos y las imagen de la aplicación. 
+ - **Styles**: Esta carpeta tiene dos hojas de estilos, la cual  la hoja de estilo **globals.scss** es la que se importa en la _app.js y la hoja **index.scss** contiene las importaciones de todas las hojas de estilo de la aplicación. 
 
-## Getting Started
+**Ejecución del código**
+Para ejecutar el código debe tener instalado **Node** :
 
-First, run the development server:
+ - Descargue el repositorio
+ - Instale node module en el repositorio usando **npm install**
+ - Ejecute el codigo usando **npm run dev**
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+**Opción 1** 
+Esta primera versión hace uso de **LocalStorage** para almacenar el los datos, esta solo almacena  el array **Platos**. 
+**Opción 2**
+La segunda versión se va a conectar a un CMS   para manejo de datos.
+**Opcion 3**
+La tercera opción va a consumir una API Externa o la propia API.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
