@@ -4,72 +4,28 @@ import { useChino } from "../context/ChinoContext";
 import { useEffect, useState } from "react";
 import Plato from "../components/Plato";
 import Link from "next/link";
+import Image from "next/image";
+import { Metodos } from "../constants/options";
+import Metodo from "../components/Metodo";
 export default function Home() {
-  const router = useRouter();
-  const [search, setSearch] = useState("");
-  const { platos, recibirPlatos, selecionarPlato } = useChino();
-  useEffect(() => {
-    //Con esto recibimos los platos
-
-    recibirPlatos();
-  }, []);
-  //esto es para que cuando estamos buscando un plato
-  const result = platos.filter((plato) => {
-    return (
-      plato.nombre.toLowerCase().includes(search.toLowerCase()) ||
-      plato.ingredientes.toLowerCase().includes(search.toLowerCase())
-    );
-  });
-  console.log(platos);
   return (
     <Layout>
       <div className="home">
-        <header className="home--header">
-          <h1> Panel administrativo restaurante Chino </h1>
-          <div>
-            <button onClick={() => router.push("/crear")}>Agregar</button>
-            <input
-              placeholder="Buscar"
-              onChange={(e) => setSearch(e.target.value)}
-            />
-          </div>
-        </header>
-        <section className="home--content">
-          <h2>Platos</h2>
-          <div className="home--content--platos">
-            {search.length > 0 ? (
-              <>
-                {result.map((plato, index) => (
-                  <Link key={index} href={"/plato/" + plato.id}>
-                    <a onClick={() => selecionarPlato(plato)}>
-                      <Plato
-                        nombre={plato.nombre}
-                        ingredientes={plato.ingredientes}
-                        precio={plato.precio}
-                      />
-                    </a>
-                  </Link>
-                ))}
-                {result.length === 0 && <p>No hay platos</p>}
-              </>
-            ) : (
-              <>
-                {platos.map((plato, index) => (
-                  <Link key={index} href={"/plato/" + plato.id}>
-                    <a onClick={() => selecionarPlato(plato)}>
-                      <Plato
-                        nombre={plato.nombre}
-                        ingredientes={plato.ingredientes}
-                        precio={plato.precio}
-                      />
-                    </a>
-                  </Link>
-                ))}
-              </>
-            )}
-          </div>
-        </section>
+        <Image src="/img/logoBlanco.png" width={300} height={300} alt="logo" />
+        <h3>SELECCIONE EL GESTOR DE CONTENIDO</h3>
+        <div className="home--items">
+          {Metodos.map((metodo, index) => (
+            <Link key={index} href={metodo.link}>
+              <a>
+                <Metodo nombre={metodo.nombre} icono={metodo.icono} />
+              </a>
+            </Link>
+          ))}
+        </div>
       </div>
     </Layout>
   );
 }
+/*
+
+*/
