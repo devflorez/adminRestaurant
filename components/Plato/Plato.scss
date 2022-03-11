@@ -2,19 +2,53 @@
   background-color: white;
   border-radius: 10px;
   padding: 20px;
-  margin: 10px;
+  max-width: 300px;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+
   &--informacion {
     h3,
     p {
       margin: 0px;
     }
   }
-  img{
-      border-radius: 4px;
-      &:hover{
-            transform: scale(1.1);
+  img {
+    border-radius: 4px;
+    object-fit: cover;
+    height: 150px;
+  }
+  &--actions {
+    display: flex;
+    justify-content: center;
+    &--button {
+      &--edit {
+        background-color: #61ff0d;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 10px;
+        font-size: 1.2rem;
+        cursor: pointer;
+        margin: 5px;
+        &:hover {
+          transform: scale(1.1);
+          transition: ease-in-out 0.2s;
+        }
       }
+      &--delete {
+        background-color: #ff0000;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 10px;
+        font-size: 1.2rem;
+        cursor: pointer;
+        margin: 5px;
+        &:hover {
+          transform: scale(1.1);
+          transition: ease-in-out 0.2s;
+        }
+      }
+    }
   }
 }

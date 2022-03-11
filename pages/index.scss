@@ -1,18 +1,47 @@
 .home {
-  
-  h1 {
+
+  text-align: center;
+  &--items {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  h3 {
     color: white;
+    text-transform: uppercase;
   }
   &--header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 20px;
+  
+    &--button {
+      background-color: #61ff0d;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 10px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      margin: 5px;
+    }
+    &--input {
+      background-color: black;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 10px;
+      font-size: 1.2rem;
+    }
   }
   &--content {
+   
     h2 {
       color: white;
+      text-transform: uppercase;
+      margin: 5px;
     }
-  
   }
 }

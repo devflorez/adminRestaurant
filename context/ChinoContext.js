@@ -23,7 +23,7 @@ export const ChinoProvider = ({ children }) => {
   // Estos son los actions de la apliacion
   const recibirPlatos = () => {
     const platos = JSON.parse(localStorage.getItem("platos"));
-    console.log("recibir", platos);
+
     if (platos) {
       dispatch({
         type: "RECIBIR_PLATOS",
@@ -39,18 +39,14 @@ export const ChinoProvider = ({ children }) => {
     });
   };
   const agregarPlato = (plato) => {
-    const platoAgregdado = localStorage.setItem(
-      "platos",
-      JSON.stringify([...state.platos, plato])
-    );
-    console.log("agregar", platoAgregdado);
+    localStorage.setItem("platos", JSON.stringify([...state.platos, plato]));
     dispatch({
       type: "AGREGAR_PLATO",
       payload: plato,
     });
   };
   const editarPlato = (plato) => {
-    const platoEditado = localStorage.setItem(
+    localStorage.setItem(
       "platos",
       JSON.stringify(
         state.platos.map((platoLocal) =>
@@ -58,7 +54,6 @@ export const ChinoProvider = ({ children }) => {
         )
       )
     );
-    console.log("editar", platoEditado);
 
     dispatch({
       type: "EDITAR_PLATO",
@@ -66,13 +61,12 @@ export const ChinoProvider = ({ children }) => {
     });
   };
   const eliminarPlato = (plato) => {
-    const platoElimanado = localStorage.setItem(
+    localStorage.setItem(
       "platos",
       JSON.stringify(
         state.platos.filter((platoLocal) => platoLocal.id !== plato.id)
       )
     );
-    console.log("eliminar", platoElimanado);
 
     dispatch({
       type: "ELIMINAR_PLATO",

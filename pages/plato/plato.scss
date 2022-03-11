@@ -1,0 +1,20 @@
+.platoEditar {
+  text-align: center;
+  h1 {
+    color: white;
+    text-transform: uppercase;
+  }
+ &--content{
+    img {
+        height: 150px;
+        width: 150px;
+        border-radius: 20px;
+        object-fit: cover;
+        &:hover {
+          transform: scale(1.6);
+          transition: ease-in-out 0.2s;
+          border-radius: 0px;
+        }
+      }
+ }
+}

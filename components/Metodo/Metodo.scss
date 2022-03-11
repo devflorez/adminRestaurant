@@ -1,0 +1,23 @@
+.metodo {
+  background-color: white;
+  padding: 20px;
+  border-radius: 20px;
+  text-align: center;
+  min-width: 200px;
+  svg {
+    font-size: 70px;
+    line-height: 1em;
+  }
+  h3 {
+    color: black;
+    text-transform: uppercase;
+  }
+  &:hover {
+    transform: scale(1.1);
+    transition: ease-in-out 0.2s;
+    svg,h3{
+        color: red;
+    }
+   
+  }
+}
