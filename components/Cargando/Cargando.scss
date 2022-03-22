@@ -1,0 +1,12 @@
+.cargando {
+display: flex;
+align-items: center;
+justify-content: center;
+
+  
+  background-color: black;
+  &--animaciones {
+    max-height: 300px;
+    max-width: 300px;
+  }
+}

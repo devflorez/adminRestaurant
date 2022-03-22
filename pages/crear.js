@@ -4,35 +4,49 @@ import { useChino } from "../context/ChinoContext";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import Image from "next/image";
+import Cargando from "../components/Cargando";
 export default function Crear() {
   const [formData, setFormData] = useState(initialValue());
-  const { agregarPlato, platos } = useChino();
+  const [cargando, setCargando] = useState(false);
+  const { agregarPlato } = useChino();
   const Router = useRouter();
-  const handleSubtmit = (e) => {
+  const handleSubtmit = async (e) => {
     e.preventDefault();
+    setCargando(true);
     const errors = validate(formData);
     setFormData({ ...formData, errors });
     if (Object.keys(errors).length === 0) {
       let plato = {
-        id: new Date().getTime(),
+        // id: new Date().getTime(),
         nombre: formData.nombre,
         precio: formData.precio,
         ingredientes: formData.ingredientes,
         imagen: formData.imagen,
       };
-      agregarPlato(plato);
-      Router.push("/");
+      await agregarPlato(plato);
+      setCargando(false);
+      Router.push("/panel");
     }
+    setCargando(false);
   };
+
 
   return (
     <Layout>
-      <div className="crear">
-      <Link href="/">
-      <a>
-      <Image src="/img/logoBlanco.png" width={200} height={200} alt="logo"/>
-      </a>
-      </Link>
+      {cargando ? (
+        <Cargando />
+      ):(
+        <div className="crear">
+        <Link href="/">
+          <a>
+            <Image
+              src="/img/logoBlanco.png"
+              width={200}
+              height={200}
+              alt="logo"
+            />
+          </a>
+        </Link>
         <h1>Agregar plato al menu</h1>
         <form className="crear--form">
           <div className="crear--form--input">
@@ -102,6 +116,7 @@ export default function Crear() {
           </button>
         </form>
       </div>
+      )}
     </Layout>
   );
 }

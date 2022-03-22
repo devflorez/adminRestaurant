@@ -3,7 +3,7 @@ import React from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useChino } from "../../context/ChinoContext";
-export default function Plato({ plato, key }) {
+export default function Plato({ plato }) {
   const { nombre, ingredientes, precio, imagen } = plato;
   const { eliminarPlato, selecionarPlato } = useChino();
   const Router = useRouter();
@@ -12,7 +12,7 @@ export default function Plato({ plato, key }) {
     Router.push("/plato/" + plato.id);
   };
   return (
-    <div className="plato" key={key}>
+    <div className="plato" >
       <img src={imagen ? imagen : "/img/platopordefecto.jpg"} alt="default" />
       <div className="plato--informacion">
         <h3>

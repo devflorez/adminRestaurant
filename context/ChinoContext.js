@@ -1,5 +1,11 @@
 import { createContext, useContext, useReducer } from "react";
 import ChinoReducer from "./ChinoReducers";
+import {
+  recibirPlatosCMSAPI,
+  agregarPlatoCMSAPI,
+  borrarPlatoCMSAPI,
+  actualizarPlatoCMSAPI,
+} from "../api/cms";
 // Valores Iniciales
 
 const initialState = {
@@ -11,6 +17,7 @@ const initialState = {
   },
   platos: [],
   errors: {},
+  metodo: "",
 };
 
 // Create a context
@@ -21,14 +28,42 @@ export const ChinoProvider = ({ children }) => {
   const [state, dispatch] = useReducer(ChinoReducer, initialState);
 
   // Estos son los actions de la apliacion
-  const recibirPlatos = () => {
-    const platos = JSON.parse(localStorage.getItem("platos"));
 
-    if (platos) {
-      dispatch({
-        type: "RECIBIR_PLATOS",
-        payload: platos,
-      });
+  const seleccionarMetodo = (metodo) => {
+    localStorage.setItem("metodo", metodo);
+    dispatch({
+      type: "SELECCIONAR_METODO",
+      payload: metodo,
+    });
+  };
+
+  const recuperarMetodo = () => {
+    const metodo = localStorage.getItem("metodo");
+
+    if (metodo) {
+      seleccionarMetodo(metodo);
+    }
+  };
+
+  const recibirPlatos = async () => {
+    recuperarMetodo();
+    switch (state.metodo) {
+      case "cms":
+        const renspose = await recibirPlatosCMSAPI();
+        dispatch({
+          type: "RECIBIR_PLATOS",
+          payload: renspose,
+        });
+
+        break;
+      case "localStorage":
+        const platos = JSON.parse(localStorage.getItem("platos"));
+        dispatch({
+          type: "RECIBIR_PLATOS",
+          payload: platos,
+        });
+      default:
+        break;
     }
   };
 
@@ -38,36 +73,84 @@ export const ChinoProvider = ({ children }) => {
       payload: plato,
     });
   };
-  const agregarPlato = (plato) => {
-    localStorage.setItem("platos", JSON.stringify([...state.platos, plato]));
-    dispatch({
-      type: "AGREGAR_PLATO",
-      payload: plato,
-    });
-  };
-  const editarPlato = (plato) => {
-    localStorage.setItem(
-      "platos",
-      JSON.stringify(
-        state.platos.map((platoLocal) =>
-          platoLocal.id === plato.id ? plato : platoLocal
-        )
-      )
-    );
+  const agregarPlato = async (plato) => {
+    recuperarMetodo();
+    switch (state.metodo) {
+      case "cms":
+        const response = await agregarPlatoCMSAPI(plato);
+        dispatch({
+          type: "AGREGAR_PLATO",
+          payload: response,
+        });
+        break;
+      case "localStorage":
+        localStorage.setItem(
+          "platos",
+          JSON.stringify([
+            ...state.platos,
+            { ...plato, id: new Date().getTime() },
+          ])
+        );
+        dispatch({
+          type: "AGREGAR_PLATO",
+          payload: { ...plato, id: new Date().getTime() },
+        });
+        break;
+      default:
+        break;
+    }
 
-    dispatch({
-      type: "EDITAR_PLATO",
-      payload: plato,
-    });
+    // dispatch({
   };
-  const eliminarPlato = (plato) => {
-    localStorage.setItem(
-      "platos",
-      JSON.stringify(
-        state.platos.filter((platoLocal) => platoLocal.id !== plato.id)
-      )
-    );
+  const editarPlato = async (plato) => {
+    recuperarMetodo();
+    switch (state.metodo) {
+      case "cms":
+        const response = await actualizarPlatoCMSAPI(plato);
+    
+        dispatch({
+          type: "EDITAR_PLATO",
+          payload: plato,
+        });
 
+        break;
+      case "localStorage":
+        localStorage.setItem(
+          "platos",
+          JSON.stringify(
+            state.platos.map((platoLocal) =>
+              platoLocal.id === plato.id ? plato : platoLocal
+            )
+          )
+        );
+        dispatch({
+          type: "EDITAR_PLATO",
+          payload: plato,
+        });
+        break;
+
+      default:
+        break;
+    }
+  };
+  const eliminarPlato = async (plato) => {
+    recuperarMetodo();
+    switch (state.metodo) {
+      case "cms":
+        const response = await borrarPlatoCMSAPI(plato.id);
+  
+        break;
+      case "localStorage":
+        localStorage.setItem(
+          "platos",
+          JSON.stringify(
+            state.platos.filter((platoLocal) => platoLocal.id !== plato.id)
+          )
+        );
+        break;
+      default:
+        break;
+    }
     dispatch({
       type: "ELIMINAR_PLATO",
       payload: plato,
@@ -85,6 +168,7 @@ export const ChinoProvider = ({ children }) => {
     <ChinoContext.Provider
       value={{
         ...state,
+        seleccionarMetodo,
         recibirPlatos,
         selecionarPlato,
         agregarPlato,

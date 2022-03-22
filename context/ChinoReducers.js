@@ -2,6 +2,13 @@
 
 export default function ChinoReducer(state, action) {
   switch (action.type) {
+    case "SELECCIONAR_METODO":
+      return {
+        ...state,
+        metodo: action.payload,
+        platos: [],
+        plato: {},
+      };
     case "RECIBIR_PLATOS":
       return {
         ...state,
@@ -35,6 +42,8 @@ export default function ChinoReducer(state, action) {
         ...state,
         platos: [],
       };
+    
+
     default:
       return state;
   }

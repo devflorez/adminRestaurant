@@ -5,14 +5,17 @@ import Layout from "../../components/Layout";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import Link from "next/link";
+import Cargando from "../../components/Cargando";
 export default function Id() {
   const { editarPlato, plato } = useChino();
   const [formData, setFormData] = useState(initialValue(plato));
-
+const [cargando, setCargando] = useState(false);
   const Router = useRouter();
 
   const handleUpdate = async (e) => {
+   
     e.preventDefault();
+    setCargando(true);
     const errors = validate(formData);
     setFormData({ ...formData, errors });
     if (Object.keys(errors).length === 0) {
@@ -24,15 +27,20 @@ export default function Id() {
         imagen: formData.imagen,
       };
       await editarPlato(platoUpdate);
-      Router.push("/");
+      Router.push("/panel");
+      setCargando(false);
     } else {
       alert("Por favor corrige los errores");
+      setCargando(false);
     }
   };
 
   return (
     <Layout>
-      <div className="platoEditar">
+     {cargando ? (
+        <Cargando />
+     ):(
+        <div className="platoEditar">
         <Link href="/">
         <a>
           <Image src="/img/logoBlanco.png" width={200} height={200} alt="logo"/>
@@ -115,6 +123,7 @@ export default function Id() {
           </form>
         </div>
       </div>
+     )}
     </Layout>
   );
 }

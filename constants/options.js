@@ -2,16 +2,19 @@ export const Metodos = [
   {
     nombre: "Local Storage",
     icono: "clarity:storage-solid",
-    link: "/local-storage",
+    link: "/panel",
+    metodo: "localStorage",
   },
   {
     nombre: "CMS",
     icono: "carbon:cloud-logging",
-    link: "/firebase",
+    link: "/panel",
+    metodo: "cms",
   },
   {
     nombre: "API REST",
     icono: "clarity:rack-server-solid",
     link: "/api-rest",
+    metodo: "ApiRest",
   },
 ];
