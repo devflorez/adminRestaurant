@@ -57,7 +57,7 @@ export const ChinoProvider = ({ children }) => {
 
         break;
       case "localStorage":
-        const platos = JSON.parse(localStorage.getItem("platos"));
+        const platos = JSON.parse(localStorage.getItem("platos")) || [];
         dispatch({
           type: "RECIBIR_PLATOS",
           payload: platos,
@@ -106,7 +106,7 @@ export const ChinoProvider = ({ children }) => {
     recuperarMetodo();
     switch (state.metodo) {
       case "cms":
-        const response = await actualizarPlatoCMSAPI(plato);
+         await actualizarPlatoCMSAPI(plato);
     
         dispatch({
           type: "EDITAR_PLATO",

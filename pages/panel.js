@@ -11,7 +11,7 @@ export default function Panel() {
   const [search, setSearch] = useState("");
   const [cargando, setCargando] = useState(false);
   const { platos, recibirPlatos, metodo } = useChino();
-    const [platosFiltrados, setPlatosFiltrados] = useState([]);
+  const [platosFiltrados, setPlatosFiltrados] = useState([]);
   useEffect(() => {
     //Con esto recibimos los platos
     (async () => {
@@ -19,19 +19,16 @@ export default function Panel() {
       await recibirPlatos();
       setCargando(false);
     })();
-
   }, [metodo]);
   //esto es para que cuando estamos buscando un plato
   useEffect(() => {
-    const platosFiltrados = platos.filter((plato) =>
-      plato.nombre.toLowerCase().includes(search.toLowerCase()) ||
+    const platosFiltrados = platos.filter(
+      (plato) =>
+        plato.nombre.toLowerCase().includes(search.toLowerCase()) ||
         plato.ingredientes.toLowerCase().includes(search.toLowerCase())
     );
     setPlatosFiltrados(platosFiltrados);
   }, [search]);
-
-
-
 
   return (
     <Layout>
@@ -82,6 +79,9 @@ export default function Panel() {
                   {platos.map((plato, index) => (
                     <Plato plato={plato} key={index} />
                   ))}
+                  {platos.length === 0 && (
+                    <span>No hay platos, Agrega un nuevo plato 😜</span>
+                  )}
                 </>
               )}
             </div>
