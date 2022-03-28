@@ -5,14 +5,18 @@ import { useRouter } from "next/router";
 import { useChino } from "../../context/ChinoContext";
 export default function Plato({ plato }) {
   const { nombre, ingredientes, precio, imagen } = plato;
-  const { eliminarPlato, selecionarPlato } = useChino();
+  const { eliminarPlato, selecionarPlato, metodo } = useChino();
   const Router = useRouter();
   const handleEdit = () => {
     selecionarPlato(plato);
-    Router.push("/plato/" + plato.id);
+    {
+      metodo === "apiRest"
+        ? Router.push("/plato/" + plato._id)
+        : Router.push("/plato/" + plato.id);
+    }
   };
   return (
-    <div className="plato" >
+    <div className="plato">
       <img src={imagen ? imagen : "/img/platopordefecto.jpg"} alt="default" />
       <div className="plato--informacion">
         <h3>
