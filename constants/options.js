@@ -14,7 +14,7 @@ export const Metodos = [
   {
     nombre: "API REST",
     icono: "clarity:rack-server-solid",
-    link: "/api-rest",
-    metodo: "ApiRest",
+    link: "/panel",
+    metodo: "apiRest",
   },
 ];

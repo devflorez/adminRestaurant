@@ -6,6 +6,12 @@ import {
   borrarPlatoCMSAPI,
   actualizarPlatoCMSAPI,
 } from "../api/cms";
+import {
+  recibirPlatosAPI,
+  agregarPlatoAPI,
+  actualizarPlatoAPI,
+  borrarPlatoAPI,
+} from "api/api-rest";
 // Valores Iniciales
 
 const initialState = {
@@ -62,6 +68,15 @@ export const ChinoProvider = ({ children }) => {
           type: "RECIBIR_PLATOS",
           payload: platos,
         });
+        break;
+      case "apiRest":
+        const platosAPI = await recibirPlatosAPI();
+      
+        dispatch({
+          type: "RECIBIR_PLATOS",
+          payload: platosAPI,
+        });
+        break;
       default:
         break;
     }
@@ -96,6 +111,12 @@ export const ChinoProvider = ({ children }) => {
           payload: { ...plato, id: new Date().getTime() },
         });
         break;
+      case "apiRest":
+        const responseAPI = await agregarPlatoAPI(plato);
+        dispatch({
+          type: "AGREGAR_PLATO",
+          payload: responseAPI,
+        });
       default:
         break;
     }
@@ -106,8 +127,8 @@ export const ChinoProvider = ({ children }) => {
     recuperarMetodo();
     switch (state.metodo) {
       case "cms":
-         await actualizarPlatoCMSAPI(plato);
-    
+        await actualizarPlatoCMSAPI(plato);
+
         dispatch({
           type: "EDITAR_PLATO",
           payload: plato,
@@ -128,6 +149,12 @@ export const ChinoProvider = ({ children }) => {
           payload: plato,
         });
         break;
+      case "apiRest":
+        const responseAPI = await actualizarPlatoAPI(plato);
+        dispatch({
+          type: "EDITAR_PLATO",
+          payload: responseAPI,
+        });
 
       default:
         break;
@@ -137,8 +164,11 @@ export const ChinoProvider = ({ children }) => {
     recuperarMetodo();
     switch (state.metodo) {
       case "cms":
-        const response = await borrarPlatoCMSAPI(plato.id);
-  
+        await borrarPlatoCMSAPI(plato.id);
+        dispatch({
+          type: "ELIMINAR_PLATO",
+          payload: plato,
+        });
         break;
       case "localStorage":
         localStorage.setItem(
@@ -147,14 +177,21 @@ export const ChinoProvider = ({ children }) => {
             state.platos.filter((platoLocal) => platoLocal.id !== plato.id)
           )
         );
+        dispatch({
+          type: "ELIMINAR_PLATO",
+          payload: plato,
+        });
+        break;
+      case "apiRest":
+        await borrarPlatoAPI(plato._id);
+        dispatch({
+          type: "ELIMINAR_PLATO",
+          payload: plato,
+        });
         break;
       default:
         break;
     }
-    dispatch({
-      type: "ELIMINAR_PLATO",
-      payload: plato,
-    });
   };
 
   const eliminarTodosLosPlatos = () => {

@@ -22,12 +22,14 @@ export default function Panel() {
   }, [metodo]);
   //esto es para que cuando estamos buscando un plato
   useEffect(() => {
-    const platosFiltrados = platos.filter(
-      (plato) =>
-        plato.nombre.toLowerCase().includes(search.toLowerCase()) ||
-        plato.ingredientes.toLowerCase().includes(search.toLowerCase())
-    );
-    setPlatosFiltrados(platosFiltrados);
+    if (platos && search.length > 0) {
+      const platosFiltrados = platos.filter(
+        (plato) =>
+          plato.nombre.toLowerCase().includes(search.toLowerCase()) ||
+          plato.ingredientes.toLowerCase().includes(search.toLowerCase())
+      );
+      setPlatosFiltrados(platosFiltrados);
+    }
   }, [search]);
 
   return (

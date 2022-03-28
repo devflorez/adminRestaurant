@@ -1,4 +1,4 @@
-const host = 'http://localhost:3000/api';
+const host = 'https://crudrestaurante.devflorez.com/api';
 
 export async function recibirPlatosAPI() {
   try {
